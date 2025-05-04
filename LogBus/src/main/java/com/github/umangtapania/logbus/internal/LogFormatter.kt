@@ -36,8 +36,8 @@ object LogFormatter {
                 for (line in lines.withIndex()) {
                     val padding = " ".repeat(contentWidth - line.value.length)
                     boxed.appendLine(if (style.useEmoji){
-                        if (line.index == 0) "│  $line$padding  │" else "│     $line$padding  │"
-                    } else "│  $line$padding  │")
+                        if (line.index == 0) "│  ${line.value}$padding  │" else "│     ${line.value}$padding  │"
+                    } else "│  ${line.value}$padding  │")
                 }
                 boxed.append("└$border┘")
             }
@@ -48,8 +48,8 @@ object LogFormatter {
                 for (line in lines.withIndex()) {
                     val padding = " ".repeat(contentWidth - line.value.length)
                     boxed.appendLine(if (style.useEmoji){
-                        if (line.index == 0) "║  $line$padding  ║" else "║     $line$padding  ║"
-                    } else "║  $line$padding  ║")
+                        if (line.index == 0) "║  ${line.value}$padding  ║" else "║     ${line.value}$padding  ║"
+                    } else "║  ${line.value}$padding  ║")
                 }
                 boxed.append("╚$border╝")
             }

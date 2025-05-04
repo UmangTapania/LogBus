@@ -19,7 +19,9 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LogBus"
+rootProject.name = "LogBusDemo"
+include(":app")
+//include("LogBus")
+//project(":LogBus").projectDir = File(rootDir, "LogBus")
+//include(":LogBus")
 include(":LogBus")
-project(":LogBus").projectDir = File(rootDir, "LogBus")
- 
