@@ -12,7 +12,7 @@ class CrashlyticsRoute(private val context : Context) : LogRoute{
         setupCrashCatcher()
     }
 
-    override fun log(level: LogLevel, tag: String, message: String) {
+    override suspend fun log(level: LogLevel, tag: String, message: String) {
         if (level == LogLevel.ERROR){
 //            write to log file for crashlytics
             writeToFile(context, LogConstants.CRASHLYTICS_FILENAME, message)
@@ -30,7 +30,7 @@ class CrashlyticsRoute(private val context : Context) : LogRoute{
             """.trimIndent()
 
             // Send it through LogBus
-            log(LogLevel.ERROR, crashInfo, crashInfo)
+//            log(LogLevel.ERROR, crashInfo, crashInfo)
 
             // Let the crash happen
 //            we will check if we can stop the crash

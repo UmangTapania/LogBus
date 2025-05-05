@@ -1,6 +1,8 @@
 package com.github.umangtapania.logbus.style
 
 import com.github.umangtapania.logbus.config.LogStyleConfig
+import com.github.umangtapania.logbus.core.LogLevel
+import com.github.umangtapania.logbus.extensions.addLogEmoji
 import com.github.umangtapania.logbus.internal.LogFormatter
 
 
@@ -12,8 +14,8 @@ class LogcatStyle(
     )
 ) : LogStyle {
 
-    override fun format(message: String): String {
-        return LogFormatter.wrapMessageInBox(message, config)
+    override fun format(message: String, level : LogLevel): String {
+        return LogFormatter.wrapMessageInBox(if (config.useEmoji) message.addLogEmoji(level) else message, config)
     }
 
 }

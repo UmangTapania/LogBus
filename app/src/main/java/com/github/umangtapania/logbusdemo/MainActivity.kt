@@ -14,11 +14,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
+import com.github.umangtapania.logbus.config.LogStyleConfig
 import com.github.umangtapania.logbus.core.LogBus
+import com.github.umangtapania.logbus.core.LogLevel
 import com.github.umangtapania.logbus.route.CrashlyticsRoute
 import com.github.umangtapania.logbus.route.FileRoute
 import com.github.umangtapania.logbus.route.LogcatRoute
+import com.github.umangtapania.logbus.style.LogBoxStyle
+import com.github.umangtapania.logbus.style.LogcatStyle
 import com.github.umangtapania.logbusdemo.ui.theme.LogBusDemoTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,19 +38,37 @@ class MainActivity : ComponentActivity() {
                             name = "Android",
                             modifier = Modifier.fillMaxSize().padding(innerPadding),
                             onClick = {
-                                LogBus.i("This is a demo log")
-                                LogBus.e("This is message for crashlytics")
+                                lifecycleScope.launch {
+                                    LogcatRoute().log(LogLevel.DEBUG,"SPECIAL LOG", "This is a specific log route triggering")
+                                }
+                                LogBus.i("This is a demo log, lets make it a little bit longer, it shouold cover multiple lines, this is just for testing, so ignore any bugs found in it, is this length enough?, no, lets make it even longer, i want it to be super loooooooong")
+                                LogBus.a("This is a demo log, lets make it a little bit longer, it shouold cover multiple lines, this is just for testing, so ignore any bugs found in it, is this length enough?, no, lets make it even longer, i want it to be super loooooooong")
+                                LogBus.d("This is a demo log, lets make it a little bit longer, it shouold cover multiple lines, this is just for testing, so ignore any bugs found in it, is this length enough?, no, lets make it even longer, i want it to be super loooooooong")
+                                LogBus.w("This is a demo log, lets make it a little bit longer, it shouold cover multiple lines, this is just for testing, so ignore any bugs found in it, is this length enough?, no, lets make it even longer, i want it to be super loooooooong")
+                                LogBus.e("This is a demo log, lets make it a little bit longer, it shouold cover multiple lines, this is just for testing, so ignore any bugs found in it, is this length enough?, no, lets make it even longer, i want it to be super loooooooong")
                             }
                         )
                     }
                 }
             }
         }
-        LogBus.addRoute(LogcatRoute())
-        LogBus.addRoute(FileRoute(this))
-        LogBus.addRoute(CrashlyticsRoute(this))
-
-
+//        LogBus.addRoute(LogcatRoute())
+        LogBus.initialize(
+            listOf(
+                LogcatRoute(
+                    LogcatStyle(
+                        LogStyleConfig(
+                            box = LogBoxStyle.SINGLE_BORDER,
+                            useEmoji = true,
+                            wrapText = true,
+                            maxLineLength = 50
+                        )
+                    )
+                ),
+                FileRoute(this),
+                CrashlyticsRoute(this)
+            )
+        )
     }
 }
 

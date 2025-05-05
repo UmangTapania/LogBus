@@ -6,8 +6,8 @@ import com.github.umangtapania.logbus.style.LogStyle
 import com.github.umangtapania.logbus.style.LogcatStyle
 
 class LogcatRoute(private val style: LogStyle = LogcatStyle()) : LogRoute{
-    override fun log(level: LogLevel, tag: String, message: String) {
-        val formattedMsg = style.format(message)
+    override suspend fun log(level: LogLevel, tag: String, message: String) {
+        val formattedMsg = style.format(message, level)
         when (level) {
             LogLevel.DEBUG -> Log.d(tag, formattedMsg)
             LogLevel.INFO -> Log.i(tag, formattedMsg)
