@@ -54,20 +54,7 @@ class MainActivity : ComponentActivity() {
         }
 //        LogBus.addRoute(LogcatRoute())
         LogBus.initialize(
-            listOf(
-                LogcatRoute(
-                    LogcatStyle(
-                        LogStyleConfig(
-                            box = LogBoxStyle.SINGLE_BORDER,
-                            useEmoji = true,
-                            wrapText = true,
-                            maxLineLength = 50
-                        )
-                    )
-                ),
-                FileRoute(this),
-                CrashlyticsRoute(this)
-            )
+            listOf( LogcatRoute() )
         )
     }
 }

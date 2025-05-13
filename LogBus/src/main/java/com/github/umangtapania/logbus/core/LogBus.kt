@@ -48,6 +48,7 @@ object LogBus {
         isInitialized = true
     }
 
+
     /**
      * Logs a message with VERBOSE level
      * @param message The message to be logged

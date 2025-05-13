@@ -3,9 +3,23 @@ package com.github.umangtapania.logbus.internal
 import com.github.umangtapania.logbus.config.LogStyleConfig
 import com.github.umangtapania.logbus.style.LogBoxStyle
 
-
+/**
+ * A utility object that handles the formatting of log messages into visually appealing box layouts.
+ * 
+ * This formatter supports different box styles (single border, double border, or no border) and
+ * can optionally include emoji decorations. It automatically wraps text to fit within specified
+ * line length constraints while maintaining proper alignment and padding.
+ */
 object LogFormatter {
 
+    /**
+     * Wraps a message in a decorative box with specified styling.
+     *
+     * @param message The text message to be formatted and wrapped in a box
+     * @param style The [LogStyleConfig] containing formatting preferences such as box style,
+     *             maximum line length, and emoji usage
+     * @return A formatted string containing the message wrapped in a box according to the specified style
+     */
     fun wrapMessageInBox(message: String, style : LogStyleConfig): String {
         // Split the message into words
         val words = message.split(" ")
