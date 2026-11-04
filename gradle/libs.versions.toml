@@ -3,7 +3,7 @@ agp = "9.0.1"
 android-compileSdk = "36"
 android-minSdk = "24"
 dokka = "2.2.0"
-kotlin = "2.4.0"
+kotlin = "2.2.21"
 kotlinx-coroutines = "1.10.2"
 mavenPublish = "0.37.0"
 

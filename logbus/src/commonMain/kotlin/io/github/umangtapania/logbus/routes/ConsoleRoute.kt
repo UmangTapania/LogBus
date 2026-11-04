@@ -1,5 +1,6 @@
 package io.github.umangtapania.logbus.routes
 
+import io.github.umangtapania.logbus.LogError
 import io.github.umangtapania.logbus.LogEvent
 import io.github.umangtapania.logbus.LogFormatter
 import io.github.umangtapania.logbus.SyncLogRoute
@@ -27,10 +28,10 @@ public class ConsoleRoute(
     formatter: LogFormatter? = null,
 ) : SyncLogRoute(formatter) {
 
-    override fun emit(event: LogEvent) {
+    override fun emit(event: LogEvent<LogError.Live>) {
         // message is already formatted if a formatter was set; append the error trace so it's never lost.
         val text = event.error
-            ?.let { "${event.message}\n${it.stackTraceToString()}" }
+            ?.let { "${event.message}\n${it.stackTrace}" }
             ?: event.message
         writeToConsole(event.level, event.tag, text)
     }

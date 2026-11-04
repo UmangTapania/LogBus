@@ -66,7 +66,7 @@ mavenPublishing {
                 "ordered background delivery."
         )
         inceptionYear.set("2026")
-        url.set("https://github.com/UmangTapania/LogBus-KMP")
+        url.set("https://github.com/UmangTapania/LogBus")
 
         licenses {
             license {
@@ -85,9 +85,9 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/UmangTapania/LogBus-KMP")
-            connection.set("scm:git:git://github.com/UmangTapania/LogBus-KMP.git")
-            developerConnection.set("scm:git:ssh://git@github.com/UmangTapania/LogBus-KMP.git")
+            url.set("https://github.com/UmangTapania/LogBus")
+            connection.set("scm:git:git://github.com/UmangTapania/LogBus.git")
+            developerConnection.set("scm:git:ssh://git@github.com/UmangTapania/LogBus.git")
         }
     }
 }

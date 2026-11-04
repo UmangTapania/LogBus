@@ -161,8 +161,27 @@ val bus = LogBus(
 bus.close()
 ```
 
-Stops accepting new logs, then lets the async workers finish whatever is already queued. Call it on
-app shutdown, and in tests to wait for delivery before asserting. It is a `suspend` function.
+Stops accepting new logs and returns straight away — it never waits and never cancels anything.
+Everything already accepted is still delivered, including a log that is only halfway through the
+interceptors: the async workers keep draining in the background until their queues are empty, and the
+bus's scope then ends on its own. A log that arrives afterwards is simply refused, not reported as a
+loss. Safe to call twice, and callable from anywhere, since it doesn't suspend — `onDestroy`, a
+shutdown hook or a `finally` all work.
+
+There is deliberately no `flush` or `await`. On a logger it would read as a promise that your logs are
+now safe, and `close()` cannot make that promise: an async route's mailbox lives in memory, and most of
+the ways a process ends — a native crash, an out-of-memory kill, the user swiping the app away — run no
+code at all. Logs that have to survive that belong on a `DurableLogRoute`, which puts them on disk
+before the route ever sees them.
+
+The bus owns the coroutines it runs on. You choose *where* they run, with the optional `dispatcher`
+parameter; *when* they end is `close()`'s business. That split is on purpose — a bus whose workers
+could be cancelled from outside, or whose failure could cancel your own coroutines, would let logging
+break the very thing it is there to report on.
+
+```kotlin
+val bus = LogBus(name = "main", routes = listOf(ConsoleRoute()), dispatcher = myTestDispatcher)
+```
 
 ## How a log flows
 
