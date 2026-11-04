@@ -5,8 +5,12 @@ package io.github.umangtapania.logbus
  * one-line). A formatter **belongs to the route, not the bus**: a route holds one and uses it inside
  * its own `log()` (see [LogRoute]). The bus never touches formatting.
  *
+ * It takes the widened `LogEvent<LogError>`, so one formatter serves every kind of route — a live one
+ * and a durable one can share the same timestamp style. [LogError.type], [LogError.message] and
+ * [LogError.stackTrace] are available whichever route it was handed to.
+ *
  * Only the interface exists for now; concrete formatters (like box + emoji) are add-ons shipped later.
  */
 public fun interface LogFormatter {
-    public fun format(event: LogEvent): String
+    public fun format(event: LogEvent<LogError>): String
 }
